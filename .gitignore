@@ -1,0 +1,21 @@
+# Exclude project management and development files
+.agent/
+PROJECT_SUMMARY.md
+TESTING_CHECKLIST.md
+TESTING_INSTRUCTIONS.md
+GITHUB_SETUP.md
+VERSION_MANAGEMENT.md
+deploy.sh
+quick-test.sh
+update-version.sh
+QUICK_REFERENCE.md
+
+# Exclude macOS files
+.DS_Store
+
+# Exclude editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

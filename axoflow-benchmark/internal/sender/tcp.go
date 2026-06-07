@@ -6,8 +6,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/nyrich/axoflow-benchmark/internal/stats"
-	"github.com/nyrich/axoflow-benchmark/internal/syslogfmt"
+	"github.com/nyrich/axobench/internal/stats"
+	"github.com/nyrich/axobench/internal/syslogfmt"
 )
 
 // tcpSender streams framed syslog messages over a persistent TCP connection.

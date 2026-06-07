@@ -1,4 +1,4 @@
-module github.com/nyrich/axoflow-benchmark
+module github.com/nyrich/axobench
 
 go 1.25.0
 

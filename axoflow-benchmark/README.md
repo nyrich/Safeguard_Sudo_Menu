@@ -187,7 +187,7 @@ axobench -t axorouter:514 -logs testdata/logs/openssh.log,testdata/logs/apache.l
 ## Project layout
 
 ```
-axoflow-benchmark/
+axobench/
 ├── main.go                  # CLI, flag parsing, output formatting
 ├── cmd/mocksink/            # local fake AxoRouter (udp/tcp/otlp) for testing
 ├── internal/

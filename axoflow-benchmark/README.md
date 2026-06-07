@@ -20,6 +20,13 @@ loghub hosts on GitHub.
 > Built in Go for true concurrency and a single static binary. Validated
 > end-to-end against the bundled `mocksink` for all three transports.
 
+**Two front-ends, one engine:**
+- **CLI** (`axobench`) — scriptable, headless, ideal for CI and remote hosts.
+- **Desktop GUI** (`gui/`, macOS & Windows) — a [Wails](https://wails.io) app with
+  live events/sec + MB/s charts and form-driven config. See **[gui/README.md](gui/README.md)**.
+
+Both drive the same `internal/engine`, so they report identical numbers.
+
 ---
 
 ## Quick start
@@ -135,13 +142,18 @@ axobench -t axorouter:514 -logs testdata/logs/openssh.log,testdata/logs/apache.l
 
 ```
 axoflow-benchmark/
-├── main.go                  # CLI, worker pool, pacing, reporting
+├── main.go                  # CLI, flag parsing, output formatting
 ├── cmd/mocksink/            # local fake AxoRouter (udp/tcp/otlp) for testing
 ├── internal/
+│   ├── engine/              # shared benchmark core (worker pool, pacing, snapshots)
 │   ├── loader/              # load sample logs into memory
 │   ├── syslogfmt/           # RFC3164/RFC5424 rendering + RFC6587 framing
 │   ├── sender/              # udp / tcp / otlp transports
-│   └── stats/              # atomic counters + EPS reporting
+│   └── stats/               # atomic throughput counters
+├── gui/                     # Wails desktop app (macOS & Windows) — see gui/README.md
+│   ├── main.go              #   thin Wails shell (the only file importing Wails)
+│   ├── app/                 #   binding logic (pure Go, unit-tested)
+│   └── frontend/            #   Vite + Chart.js dashboard
 ├── scripts/fetch-logs.sh    # download real logs from loghub
 └── testdata/logs/           # sample logs land here (gitignored)
 ```

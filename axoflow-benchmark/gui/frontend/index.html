@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>axobench — Axoflow Benchmark Tester</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">⚡</span>
+        <div>
+          <h1>axobench</h1>
+          <p class="subtitle">Axoflow log benchmark tester — how many events/sec can it take?</p>
+        </div>
+      </div>
+      <div class="run-state" id="runState"><span class="dot idle"></span> Idle</div>
+    </header>
+
+    <main class="layout">
+      <!-- Config panel -->
+      <section class="panel config">
+        <h2>Target</h2>
+        <label>Address (host:port)
+          <input id="target" type="text" placeholder="127.0.0.1:514" />
+        </label>
+        <label>Transport
+          <select id="transport">
+            <option value="tcp">Syslog TCP</option>
+            <option value="udp">Syslog UDP</option>
+            <option value="otlp">OTLP / gRPC</option>
+          </select>
+        </label>
+
+        <h2>Log source</h2>
+        <label>Files / directory (comma-separated)
+          <div class="row">
+            <input id="logs" type="text" placeholder="testdata/logs" />
+            <button class="ghost" id="browse" type="button">Browse…</button>
+          </div>
+        </label>
+
+        <h2>Load</h2>
+        <div class="grid2">
+          <label>Workers
+            <input id="workers" type="number" min="1" value="8" />
+          </label>
+          <label>Duration (s, 0=manual)
+            <input id="durationSec" type="number" min="0" value="30" />
+          </label>
+          <label>Target rate (eps, 0=max)
+            <input id="rate" type="number" min="0" value="0" />
+          </label>
+          <label>Count (0=unlimited)
+            <input id="count" type="number" min="0" value="0" />
+          </label>
+        </div>
+
+        <h2>Format</h2>
+        <div class="grid2">
+          <label>Syslog format
+            <select id="format">
+              <option value="rfc5424">RFC5424</option>
+              <option value="rfc3164">RFC3164</option>
+              <option value="raw">Raw</option>
+            </select>
+          </label>
+          <label class="fld-framing">TCP framing
+            <select id="framing">
+              <option value="octet">Octet-counting</option>
+              <option value="newline">Newline</option>
+            </select>
+          </label>
+          <label class="fld-batch">OTLP batch size
+            <input id="batch" type="number" min="1" value="100" />
+          </label>
+          <label class="fld-tls checkbox">
+            <input id="otlpTLS" type="checkbox" /> OTLP TLS
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="startBtn" type="button">▶ Start</button>
+          <button class="danger" id="stopBtn" type="button" disabled>■ Stop</button>
+        </div>
+        <p class="err" id="errBox"></p>
+      </section>
+
+      <!-- Results panel -->
+      <section class="panel results">
+        <div class="stat-grid">
+          <div class="stat big">
+            <span class="label">Events / sec</span>
+            <span class="value" id="statEps">0</span>
+          </div>
+          <div class="stat">
+            <span class="label">Avg EPS</span>
+            <span class="value" id="statAvgEps">0</span>
+          </div>
+          <div class="stat">
+            <span class="label">Throughput</span>
+            <span class="value" id="statMbps">0 <small>MB/s</small></span>
+          </div>
+          <div class="stat">
+            <span class="label">Messages sent</span>
+            <span class="value" id="statMsgs">0</span>
+          </div>
+          <div class="stat">
+            <span class="label">Elapsed</span>
+            <span class="value" id="statElapsed">0.0 <small>s</small></span>
+          </div>
+          <div class="stat">
+            <span class="label">Errors</span>
+            <span class="value" id="statErrors">0</span>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="chart"></canvas>
+        </div>
+
+        <div class="summary hidden" id="summary">
+          <h2>Final results</h2>
+          <table id="summaryTable"></table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

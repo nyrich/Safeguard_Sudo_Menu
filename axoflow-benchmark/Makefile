@@ -1,4 +1,4 @@
-.PHONY: all build logs test vet clean run-sink-udp run-sink-tcp run-sink-otlp
+.PHONY: all build logs test vet clean run-sink-udp run-sink-tcp run-sink-otlp gui-dev gui-build
 
 all: build
 
@@ -22,6 +22,14 @@ test:
 ## clean: remove built binaries
 clean:
 	rm -rf bin
+
+## gui-dev: run the desktop app in dev mode (needs Wails CLI + platform webview)
+gui-dev:
+	cd gui && wails dev
+
+## gui-build: build the desktop app bundle (.app on macOS, .exe on Windows)
+gui-build:
+	cd gui && wails build
 
 ## run-sink-udp: start a local UDP mock receiver on :5514
 run-sink-udp: build

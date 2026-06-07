@@ -1,0 +1,6 @@
+# Built binaries
+/bin/
+
+# Downloaded sample logs (fetch with scripts/fetch-logs.sh)
+/testdata/logs/*.log
+/testdata/logs/*.corpus

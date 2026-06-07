@@ -1,0 +1,21 @@
+# One-command self-test entirely in Docker:
+#
+#   docker compose up --build --abort-on-container-exit
+#
+# Spins up a mock receiver (mocksink) and points axobench at it over the compose
+# network, so you can validate the toolchain without a real Axoflow. Swap the
+# `bench` command's -t to your AxoRouter to benchmark for real.
+services:
+  sink:
+    build: .
+    image: axobench:latest
+    entrypoint: ["mocksink"]
+    command: ["-transport", "tcp", "-listen", ":5601"]
+
+  bench:
+    build: .
+    image: axobench:latest
+    depends_on:
+      - sink
+    # Hammer the sink for 15s with 8 workers over TCP (octet framing).
+    command: ["-t", "sink:5601", "-transport", "tcp", "-framing", "octet", "-d", "15s", "-w", "8"]

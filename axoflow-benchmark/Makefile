@@ -1,4 +1,4 @@
-.PHONY: all build logs test vet clean run-sink-udp run-sink-tcp run-sink-otlp gui-dev gui-build
+.PHONY: all build logs test vet clean run-sink-udp run-sink-tcp run-sink-otlp gui-dev gui-build docker-build docker-demo docker-sink
 
 all: build
 
@@ -30,6 +30,18 @@ gui-dev:
 ## gui-build: build the desktop app bundle (.app on macOS, .exe on Windows)
 gui-build:
 	cd gui && wails build
+
+## docker-build: build the static CLI/mocksink image (axobench:latest)
+docker-build:
+	docker build -t axobench:latest .
+
+## docker-demo: run mocksink + axobench together in Docker (self-test)
+docker-demo:
+	docker compose up --build --abort-on-container-exit
+
+## docker-sink: run a standalone mock receiver on :5601 (override transport/port as needed)
+docker-sink: docker-build
+	docker run --rm -p 5601:5601 --entrypoint mocksink axobench:latest -transport tcp -listen :5601
 
 ## run-sink-udp: start a local UDP mock receiver on :5514
 run-sink-udp: build

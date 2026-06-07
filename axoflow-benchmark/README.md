@@ -54,6 +54,52 @@ No Axoflow handy? Smoke-test against the bundled mock receiver:
 
 ---
 
+## Docker
+
+The CLI and mock sink ship as a tiny static [distroless](https://github.com/GoogleContainerTools/distroless)
+image with real sample logs baked in — ideal for deploying the load generator
+next to AxoRouter (a container, a k8s Job, etc.).
+
+```bash
+# Build the image (axobench:latest)
+docker build -t axobench:latest .          # or: make docker-build
+
+# Hammer your AxoRouter
+docker run --rm axobench:latest -t YOUR_AXOROUTER:514 -transport tcp -d 30s -w 8
+
+# Replay your own logs instead of the baked-in samples
+docker run --rm -v "$PWD/mylogs:/logs" axobench:latest \
+  -t YOUR_AXOROUTER:514 -logs /logs -d 30s
+
+# Run the mock receiver from the same image
+docker run --rm -p 5601:5601 --entrypoint mocksink axobench:latest -transport tcp -listen :5601
+```
+
+**Full self-test in Docker** (mock sink + benchmark over the compose network):
+
+```bash
+docker compose up --build --abort-on-container-exit    # or: make docker-demo
+```
+
+> Building for a different CPU arch (e.g. amd64 servers from an Apple-Silicon
+> Mac): `docker buildx build --platform linux/amd64 -t axobench:amd64 .`
+
+### macOS GUI vs Docker
+
+The desktop GUI is **not** built in Docker: Docker on macOS runs Linux
+containers, and a Wails macOS app links the native macOS WebKit via CGO, which
+only builds on macOS. So the split is:
+
+| Component | How you build it |
+|-----------|------------------|
+| CLI + mocksink (`axobench`) | **Docker** (`make docker-build`) — or `go build` |
+| Desktop GUI (`gui/`) | **Natively on the Mac**: `cd gui && wails build` (see [gui/README.md](gui/README.md)) |
+
+Both share `internal/engine`, so the GUI and the containerized CLI report the
+same throughput numbers.
+
+---
+
 ## Usage
 
 ```

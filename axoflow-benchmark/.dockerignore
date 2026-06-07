@@ -1,0 +1,13 @@
+# Keep the build context small and the build hermetic.
+.git
+.gitignore
+
+# GUI is a separate module built natively on macOS (not in Docker).
+gui/
+
+# Local build artifacts.
+bin/
+
+# Sample logs are fetched fresh during the image build.
+testdata/logs/*.log
+testdata/logs/*.corpus

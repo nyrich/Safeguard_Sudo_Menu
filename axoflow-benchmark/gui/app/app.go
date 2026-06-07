@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nyrich/axobench/internal/engine"
+	"git.nyrich.com/nyrich/axobench/internal/engine"
 )
 
 // Emitter abstracts the Wails runtime so the core stays platform-independent.

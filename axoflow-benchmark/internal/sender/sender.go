@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/nyrich/axobench/internal/stats"
-	"github.com/nyrich/axobench/internal/syslogfmt"
+	"git.nyrich.com/nyrich/axobench/internal/stats"
+	"git.nyrich.com/nyrich/axobench/internal/syslogfmt"
 )
 
 // Sender ships log events over a single connection. A Sender is owned by one

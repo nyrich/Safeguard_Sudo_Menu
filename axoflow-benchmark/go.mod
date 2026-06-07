@@ -1,4 +1,4 @@
-module github.com/nyrich/axobench
+module git.nyrich.com/nyrich/axobench
 
 go 1.25.0
 

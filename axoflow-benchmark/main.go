@@ -20,7 +20,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/nyrich/axobench/internal/engine"
+	"git.nyrich.com/nyrich/axobench/internal/engine"
 )
 
 func main() {

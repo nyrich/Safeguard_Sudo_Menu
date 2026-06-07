@@ -12,7 +12,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	wruntime "github.com/wailsapp/wails/v2/pkg/runtime"
 
-	"github.com/nyrich/axobench/gui/app"
+	"git.nyrich.com/nyrich/axobench/gui/app"
 )
 
 //go:embed all:frontend/dist

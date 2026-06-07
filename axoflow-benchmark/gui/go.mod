@@ -1,9 +1,9 @@
-module github.com/nyrich/axobench/gui
+module git.nyrich.com/nyrich/axobench/gui
 
 go 1.25.0
 
 require (
-	github.com/nyrich/axobench v0.0.0
+	git.nyrich.com/nyrich/axobench v0.0.0
 	github.com/wailsapp/wails/v2 v2.12.0
 )
 
@@ -44,4 +44,4 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 )
 
-replace github.com/nyrich/axobench => ../
+replace git.nyrich.com/nyrich/axobench => ../

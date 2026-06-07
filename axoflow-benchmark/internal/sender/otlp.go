@@ -16,7 +16,7 @@ import (
 	logspb "go.opentelemetry.io/proto/otlp/logs/v1"
 	resourcepb "go.opentelemetry.io/proto/otlp/resource/v1"
 
-	"github.com/nyrich/axobench/internal/stats"
+	"git.nyrich.com/nyrich/axobench/internal/stats"
 )
 
 // otlpSender ships logs to an AxoRouter OpenTelemetry source over OTLP/gRPC.

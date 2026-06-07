@@ -12,10 +12,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/nyrich/axobench/internal/loader"
-	"github.com/nyrich/axobench/internal/sender"
-	"github.com/nyrich/axobench/internal/stats"
-	"github.com/nyrich/axobench/internal/syslogfmt"
+	"git.nyrich.com/nyrich/axobench/internal/loader"
+	"git.nyrich.com/nyrich/axobench/internal/sender"
+	"git.nyrich.com/nyrich/axobench/internal/stats"
+	"git.nyrich.com/nyrich/axobench/internal/syslogfmt"
 )
 
 // Config fully describes a benchmark run. String enums are parsed by Run so

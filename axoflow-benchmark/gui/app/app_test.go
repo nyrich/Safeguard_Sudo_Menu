@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nyrich/axobench/internal/engine"
+	"git.nyrich.com/nyrich/axobench/internal/engine"
 )
 
 // fakeEmitter captures events and signals when a terminal event arrives.
